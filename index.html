@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TIME DE TI - Custos AWS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Tela de Login -->
+  <div class="login-container" id="loginContainer">
+    <div class="login-card">
+      <div class="login-logo">
+        <h1>TIME DE TI</h1>
+        <p>Dashboard de Custos AWS</p>
+      </div>
+      <form class="login-form" id="loginForm">
+        <div class="input-group">
+          <label for="username">Usuário</label>
+          <input type="text" id="username" placeholder="Digite seu usuário" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" placeholder="Digite sua senha" required>
+        </div>
+        <button type="submit" class="login-btn">
+          <span class="button-text">Acessar Dashboard</span>
+          <i class="fas fa-sign-in-alt"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div class="loader-overlay" id="loaderOverlay">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">TIME DE TI - Custos AWS</div>
+  </div>
+
+  <!-- Tela Principal -->
+  <div class="container" id="mainContainer">
+    <header>
+      <h1>Dashboard de Custos AWS</h1>
+      <p class="subtitle">Relatório semanal comparativo de custos e serviços com análise detalhada</p>
+    </header>
+
+    <div class="dashboard-header">
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-value" id="totalCurrent">$0.00</div>
+          <div class="stat-label">Custo Semanal Atual</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalPrevious">$0.00</div>
+          <div class="stat-label">Custo Semana Anterior</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="totalDifference">$0.00</div>
+          <div class="stat-label">Variação Total</div>
+        </div>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="secondary" onclick="exportToCSV()">
+          <span class="button-text">Exportar CSV</span>
+          <i class="fas fa-file-csv loader"></i>
+        </button>
+        <button class="drive" onclick="openGoogleDrive()">
+          <span class="button-text">Google Drive</span>
+          <i class="fab fa-google-drive loader"></i>
+        </button>
+        <button class="whatsapp" onclick="copyToWhatsApp()">
+          <span class="button-text">WhatsApp</span>
+          <i class="fab fa-whatsapp loader"></i>
+        </button>
+        <button class="success" onclick="calcular()">
+          <span class="button-text">Gerar Relatório</span>
+          <i class="fas fa-calculator loader"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table id="tabela">
+        <thead>
+          <tr>
+            <th>Serviço</th>
+            <th>Semana Anterior</th>
+            <th>Semana Atual</th>
+            <th>Diferença</th>
+            <th>Situação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section"><td colspan="5">Conta Root (Broadcast, Checkout Antiga, Histórico do AccountStatements)</td></tr>
+          <tr><td>Serviço de Envio de E-mails (SES)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Serviço de Notificação (SNS)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">G Digital 2.0</td></tr>
+          <tr><td>Banco de Dados Relacional</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Gerenciamento de Contêineres (Elastic Container Service)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Rede - EC2 Outros)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Monitoramento e Logs (CloudWatch)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Armazenamento S3</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">Greenn - DevOps</td></tr>
+          <tr><td>Banco de Dados Relacional</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Rede)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Computação)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">Greenn Back</td></tr>
+          <tr><td>Banco de Dados Relacional</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Gerenciamento de Contêineres (Elastic Container Service)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Rede)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Monitoramento e Logs (CloudWatch)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">Club Back</td></tr>
+          <tr><td>Banco de Dados Relacional</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Rede)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Monitoramento e Logs (CloudWatch)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Computação)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Rede Privada Virtual (VPC)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">GREENN SUBSCRIPTIONS</td></tr>
+          <tr><td>Gerenciamento de Contêineres (Elastic Container Service)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Relational database service</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>EC2 instancias</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Monitoramento e Logs (CloudWatch)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Rede Privada Virtual (VPC)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Rede)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">GREENN SALES STAGING</td></tr>
+          <tr><td>Gerenciamento de Contêineres (Elastic Container Service)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Rede)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Rede Privada Virtual (VPC)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Relational database service</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>EC2 instancias</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">GREENN SUBSCRIPTIONS STAGING</td></tr>
+          <tr><td>Gerenciamento de Contêineres (Elastic Container Service)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Rede)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Rede Privada Virtual (VPC)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Relational database service</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>EC2 instancias</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">GREENN STAGING</td></tr>
+          <tr><td>Gerenciamento de Contêineres (Elastic Container Service)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Servidores Virtuais (Rede)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Rede Privada Virtual (VPC)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Relational database service</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>EC2 instancias</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>CloudWhach</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+      
+          <tr class="section"><td colspan="5">Club Front</td></tr>
+          <tr><td>Servidores Virtuais (Rede)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>CloudFront</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+          <tr><td>Rede Privada Virtual (VPC)</td><td><input type="text" placeholder="$0.00"></td><td><input type="text" placeholder="$0.00"></td><td class="resultado"></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="output-container">
+      <textarea id="saidaTexto" readonly placeholder="O relatório detalhado aparecerá aqui após clicar em 'Gerar Relatório'..."></textarea>
+      <button class="copy-btn" onclick="copyToClipboard()">
+        <i class="fas fa-copy"></i> Copiar Relatório
+      </button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
