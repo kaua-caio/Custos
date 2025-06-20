@@ -4,12 +4,528 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TIME DE TI - Custos AWS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="icon" href="aws.png" type="image/x-icon">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary-color: #64748b;
+      --secondary-light: #94a3b8;
+      --success-color: #16a34a;
+      --danger-color: #dc2626;
+      --warning-color: #d97706;
+      --info-color: #0284c7;
+      --light-color: #f8fafc;
+      --dark-color: #1e293b;
+      --dark-light: #334155;
+      --body-bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --header-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --table-header-bg: #f8fafc;
+      --section-bg: #f8fafc;
+      --hover-bg: #f1f5f9;
+      --positive-color: #10b981;
+      --negative-color: #ef4444;
+      --neutral-color: #6b7280;
+      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--body-bg);
+      color: var(--dark-color);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* LOGIN STYLES */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      padding: 1.5rem;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background-color: var(--card-bg);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border-light);
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .login-logo h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.875rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      letter-spacing: -0.025em;
+    }
+
+    .login-logo p {
+      font-size: 0.9375rem;
+      color: var(--secondary-color);
+      margin-top: 0.5rem;
+      font-weight: 400;
+    }
+
+    .login-form .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .login-form label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--dark-light);
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 0.9375rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background-color: var(--light-color);
+      transition: var(--transition);
+      color: var(--dark-color);
+    }
+
+    .login-form input::placeholder {
+      color: var(--secondary-light);
+    }
+
+    .login-form input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 0.75rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 0.5rem;
+    }
+
+    .login-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    /* LOADER STYLES */
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: var(--transition);
+    }
+
+    .loader-spinner {
+      width: 3rem;
+      height: 3rem;
+      border: 4px solid rgba(37, 99, 235, 0.1);
+      border-top: 4px solid var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+
+    .loader-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--primary-color);
+      letter-spacing: -0.025em;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* MAIN CONTAINER STYLES */
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.025em;
+    }
+
+    .subtitle {
+      font-size: 1.0625rem;
+      color: var(--secondary-color);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* DASHBOARD HEADER STYLES */
+    .dashboard-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .dashboard-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      width: 100%;
+    }
+
+    .stat-card {
+      padding: 1.5rem;
+      background-color: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: -0.025em;
+    }
+
+    .stat-card:nth-child(1) .stat-value {
+      color: var(--primary-color);
+    }
+
+    .stat-card:nth-child(2) .stat-value {
+      color: var(--secondary-color);
+    }
+
+    .stat-card:nth-child(3) .stat-value {
+      color: var(--success-color);
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--secondary-color);
+      font-weight: 500;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+
+    .action-buttons button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .action-buttons .secondary {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+
+    .action-buttons .drive {
+      background-color: #4285f4;
+      color: white;
+    }
+
+    .action-buttons .whatsapp {
+      background-color: #25d366;
+      color: white;
+    }
+
+    .action-buttons .success {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .action-buttons button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .action-buttons button:active {
+      transform: translateY(0);
+    }
+
+    /* TABLE STYLES */
+    .table-container {
+      background-color: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border-light);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      background-color: var(--table-header-bg);
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--dark-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    tbody td {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.875rem;
+      color: var(--dark-light);
+    }
+
+    tr:hover td {
+      background-color: var(--hover-bg);
+    }
+
+    tr.section td {
+      background-color: var(--section-bg);
+      font-weight: 600;
+      color: var(--primary-color);
+      padding: 0.875rem 1.25rem;
+      font-size: 0.875rem;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    tbody td input {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      transition: var(--transition);
+      color: var(--dark-color);
+      background-color: var(--light-color);
+    }
+
+    tbody td input::placeholder {
+      color: var(--secondary-light);
+    }
+
+    tbody td input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    td.resultado {
+      font-weight: 500;
+      color: var(--dark-color);
+    }
+
+    /* OUTPUT STYLES */
+    .output-container {
+      background-color: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 1.25rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      resize: vertical;
+      margin-bottom: 1.5rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--dark-color);
+      background-color: var(--light-color);
+    }
+
+    textarea::placeholder {
+      color: var(--secondary-light);
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .copy-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0);
+    }
+
+    /* UTILITY CLASSES */
+    .positive {
+      color: var(--positive-color);
+    }
+
+    .negative {
+      color: var(--negative-color);
+    }
+
+    .neutral {
+      color: var(--neutral-color);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem 1rem;
+      }
+      
+      .dashboard-header {
+        gap: 1.25rem;
+      }
+      
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons {
+        justify-content: flex-start;
+      }
+      
+      thead th, tbody td {
+        padding: 0.875rem 1rem;
+      }
+      
+      .login-card {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .action-buttons button {
+        padding: 0.625rem 1rem;
+        font-size: 0.8125rem;
+      }
+      
+      .copy-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Tela de Login -->
@@ -37,13 +553,13 @@
   </div>
 
   <!-- Loader -->
-  <div class="loader-overlay" id="loaderOverlay">
+  <div class="loader-overlay hidden" id="loaderOverlay">
     <div class="loader-spinner"></div>
-    <div class="loader-text">TIME DE TI - Custos AWS</div>
+    <div class="loader-text">Carregando Dashboard</div>
   </div>
 
   <!-- Tela Principal -->
-  <div class="container" id="mainContainer">
+  <div class="container hidden" id="mainContainer">
     <header>
       <h1>Dashboard de Custos AWS</h1>
       <p class="subtitle">Relatório semanal comparativo de custos e serviços com análise detalhada</p>
@@ -67,20 +583,20 @@
       
       <div class="action-buttons">
         <button class="secondary" onclick="exportToCSV()">
+          <i class="fas fa-file-csv"></i>
           <span class="button-text">Exportar CSV</span>
-          <i class="fas fa-file-csv loader"></i>
         </button>
         <button class="drive" onclick="openGoogleDrive()">
+          <i class="fab fa-google-drive"></i>
           <span class="button-text">Google Drive</span>
-          <i class="fab fa-google-drive loader"></i>
         </button>
         <button class="whatsapp" onclick="copyToWhatsApp()">
+          <i class="fab fa-whatsapp"></i>
           <span class="button-text">WhatsApp</span>
-          <i class="fab fa-whatsapp loader"></i>
         </button>
         <button class="success" onclick="calcular()">
+          <i class="fas fa-calculator"></i>
           <span class="button-text">Gerar Relatório</span>
-          <i class="fas fa-calculator loader"></i>
         </button>
       </div>
     </div>

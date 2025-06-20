@@ -1,10 +1,10 @@
 :root {
     /* Cores modernas - Tema Claro */
-    --primary: #4f46e5;           /* Azul vibrante */
+    --primary: #023dff;           /* Azul vibrante */
     --primary-light: #0084ff;     /* Azul mais claro */
     --primary-dark: #0050e4;      /* Azul mais escuro */
     --secondary: #0044ff;         /* Roxo azulado */
-    --accent: #156eff;            /* Azul claro */
+    --accent: #156fff;            /* Azul claro */
     --success: #0099ff;           /* Verde */
     --error: #ef4444;             /* Vermelho */
     --warning: #f59e0b;           /* Laranja */
